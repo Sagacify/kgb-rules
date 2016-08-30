@@ -1,5 +1,4 @@
-from ..config import MAX_LINE_LENGTH
-
+from .config import MAX_LINE_LENGTH
 
 def check_second_line(commit_lines):
     r"""Check second line is blank line and there is a body.

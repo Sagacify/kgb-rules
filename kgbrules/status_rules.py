@@ -1,7 +1,7 @@
 import re
 
-from ..config import MAX_STATUS_LENGTH
-from ..config import TYPES
+from .config import MAX_STATUS_LENGTH
+from .config import TYPES
 
 status_pattern = re.compile(
     """^([^()\s]*)(\s*)\(([^()\s]*)\)(\s*):(\s*)(.*\w)(\s*)$""")
