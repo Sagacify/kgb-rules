@@ -4,9 +4,9 @@ dependencies:
     - chmod +x run-sonar.sh
     - ./run-sonar.sh check
     - ./run-sonar.sh install
-    - pip install -r requirement*.txt
+    - pip install tox pylint
 
 test:
   override:
-    - py.test --doctest-modules kgbrules
+    - tox
     - ./run-sonar.sh run
