@@ -1,4 +1,6 @@
-from ..config import MAX_LINE_LENGTH
+"""Rules applied line by line."""
+
+from .config import MAX_LINE_LENGTH
 
 
 def check_second_line(commit_lines):

@@ -1,0 +1,12 @@
+dependencies:
+  override:
+    - wget https://raw.githubusercontent.com/Sagacify/ci-tools/master/run-sonar.sh
+    - chmod +x run-sonar.sh
+    - ./run-sonar.sh check
+    - ./run-sonar.sh install
+    - pip install tox pylint
+
+test:
+  override:
+    - tox
+    - ./run-sonar.sh run
