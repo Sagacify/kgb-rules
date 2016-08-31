@@ -1,3 +1,5 @@
+"""Rules applied to the unprocessed whole commit."""
+
 
 def check_for_tabs(commit_message):
     r"""Check for tabs.

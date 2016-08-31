@@ -15,9 +15,9 @@ to the commit messages.
 ... We try to make explanations as understandable as possible but we have some
 ... \tissues with code consistency.'''
 
->>> len(apply(good_message))
+>>> len(apply_checks(good_message))
 0
->>> len(apply(bad_message))
+>>> len(apply_checks(bad_message))
 5
 """
 
@@ -33,29 +33,40 @@ def _get_rules(module):
     return [tup[1] for tup in getmembers(module, isfunction)
             if tup[0][0] != "_"]
 
-_line_rules = _get_rules(line_rules)
-_raw_rules = _get_rules(raw_rules)
-_status_rules = _get_rules(status_rules)
+_LINE_RULES = _get_rules(line_rules)
+_RAW_RULES = _get_rules(raw_rules)
+_STATUS_RULES = _get_rules(status_rules)
 
 
 def split_lines(commit_message):
+    """Split lines of the commit (windows or linux)."""
     return re.split('\r?\n', commit_message)
 
 
-def apply(commit_message):
+def _is_merge(commit):
+    """Check if the commit is a merge commit from github.
+
+    Merges from github always contain a number."""
+    return commit.startswith("Merge pull request #")
+
+
+def apply_checks(commit_message):
     """Apply all rules to the commit message."""
+    if _is_merge(commit_message):
+        return []
+
     errors = []
-    for rule in _raw_rules:
+    for rule in _RAW_RULES:
         err = rule(commit_message)
         if err is not None:
             errors.append(err)
     commit_lines = split_lines(commit_message)
-    for rule in _status_rules:
+    for rule in _STATUS_RULES:
         err = rule(commit_lines[0])
         if err is not None:
             errors.append(err)
-    for check in _line_rules:
+    for check in _LINE_RULES:
         err = check(commit_lines)
         if err is not None:
             errors.append(err)
-    return(errors)
+    return errors

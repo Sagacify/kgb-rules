@@ -1,4 +1,10 @@
+"""Default parameters for rules.
+
+These can be overridden by environment parameters
+"""
+
 from os import environ as env
+
 
 MAX_STATUS_LENGTH = int(env.get("MAX_STATUS_LENGTH") or 50)
 MAX_LINE_LENGTH = int(env.get("MAX_LINE_LENGTH") or 72)
